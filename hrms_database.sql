@@ -172,3 +172,45 @@ GO
 ALTER TABLE [dbo].[systememployees] CHECK CONSTRAINT [FK_systememployees_users]
 GO
 
+USE [HRMS]
+GO
+
+/****** Object:  Table [dbo].[jobadvertisements]    Script Date: 29.05.2021 17:54:20 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[jobadvertisements](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[employerid] [int] NOT NULL,
+	[positionid] [int] NOT NULL,
+	[positiondefinition] [nvarchar](max) NOT NULL,
+	[city] [nvarchar](50) NOT NULL,
+	[salarymin] [int] NULL,
+	[salarymax] [int] NULL,
+	[vacancy] [int] NOT NULL,
+	[deadline] [date] NULL,
+	[isactive] [bit] NOT NULL,
+ CONSTRAINT [PK_jobadvertisements] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[jobadvertisements]  WITH CHECK ADD  CONSTRAINT [FK_jobadvertisements_employers] FOREIGN KEY([employerid])
+REFERENCES [dbo].[employers] ([id])
+GO
+
+ALTER TABLE [dbo].[jobadvertisements] CHECK CONSTRAINT [FK_jobadvertisements_employers]
+GO
+
+ALTER TABLE [dbo].[jobadvertisements]  WITH CHECK ADD  CONSTRAINT [FK_jobadvertisements_jobpositions] FOREIGN KEY([positionid])
+REFERENCES [dbo].[jobpositions] ([id])
+GO
+
+ALTER TABLE [dbo].[jobadvertisements] CHECK CONSTRAINT [FK_jobadvertisements_jobpositions]
+GO
+
